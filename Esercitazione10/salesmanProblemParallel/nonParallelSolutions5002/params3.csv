@@ -1,0 +1,2 @@
+size,nMigr,nExchange,popMigrating,sizePop,nGens,pchoice,pmutation,pcrossover
+500,10,1,3,1000,10000,0.4055,0.0990597,0.655134
