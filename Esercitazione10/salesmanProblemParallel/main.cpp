@@ -61,13 +61,13 @@ int main (int argc, char *argv[]){
 	int nExchange=1;		//number of continents that migrates at every migration event
 	int popMigrating=3;		//number of individuals that migrates at each migration
 	int sizePop=1000;		//size of the population
-	int nGens=1000;			//number of generation
-	double pChoice = 0.5;	//related to the probability of reproduction
+	int nGens=10000;			//number of generation
+	double pChoice = 0.3;	//related to the probability of reproduction
 	City city(0.0,0.0);		
 	double defaultProb=0.1;//default probability of mutation
-	double pCrossOver=0.5;	//probability of crossover
+	double pCrossOver=0.45;	//probability of crossover
 	double mean=0;
-	int readInputFile = 1;	//if 1 read the input file American_capitals.dat, otherwise generate cities 
+	int readInputFile = 0;	//if 1 read the input file American_capitals.dat, otherwise generate cities 
 	//randomly change the parameters, except for the process 0
 	/*if(world_rank!=0){
 		defaultProb+=rnd.Rannyu(-0.05,0.35);

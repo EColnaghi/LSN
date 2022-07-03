@@ -11,7 +11,7 @@ for three different distributions: an exponential distribution,*/
 #include "random.h"
 
 
-
+//return the mean of the sum of n exponential random variables extracted from the distribution e^(-lambda*x)
 double exponential(Random& rnd, double lambda, int n){
 	double sum=0;
 	
@@ -21,23 +21,28 @@ double exponential(Random& rnd, double lambda, int n){
 	return sum/n;
 }
 
+
+//return the mean of the sum of n random variables extracted from the pdf of a standard, six sided dice
 double standard(Random& rnd, double mu, double gamma, int n){
 	double sum=0;
 	
 	for(int i = 0; i<n; i++){
-		sum=+std::floor(rnd.Rannyu()*6)+1;
+		sum+=std::floor(rnd.Rannyu(1,7));
 	}
 	return sum/n;
 }
 
+
+//return the mean of the sum of n random variables extracted from a cauchy distribution centered in mu with FWHM gamma
 double cauchy(Random& rnd, double mu, double gamma, int n){
 	double sum=0;
 	
 	for(int i = 0; i<n; i++){
-		sum=+rnd.cauchy(mu, gamma);
+		sum+=rnd.cauchy(mu, gamma);
 	}
 	return sum/n;
 }
+
 
 int main (int argc, char *argv[]){
 
@@ -62,20 +67,18 @@ int main (int argc, char *argv[]){
 		}
 		input.close();
 	} else std::cerr << "PROBLEM: Unable to open seed.in" << std::endl;
-
-	int M=4;
-	int n=10000;
-	int N[]={1,2,10,100};
-	double lambda=1;
-	double mu=0;
-	double gamma=1;
+	//declare the variables
+	int n=10000;			//size of the sampling
+	int N[]={1,2,10,100};	//size of the sample of which we will take the mean
+	double lambda=1;		//constant of the exponential distribution
+	double mu=0;			//center of the cauchy distribution
+	double gamma=1;			//gamma parameter of the cacuhy distribution
 	
 	std::ofstream output("distributions.csv");
-	output<<"e1,c1,u1,e2,c2,u2,e10,c10,u10,e100,c100,u100,"<<std::endl;
+	output<<"e1,c1,s1,e2,c2,s2,e10,c10,s10,e100,c100,s100,"<<std::endl;
 	
 	for(int i=0; i<n;i++){
 		for(int j:N){
-		
 			output<<exponential(rnd,lambda,j)<<',';
 			output<<cauchy(rnd,mu, gamma,j)<<',';
 			output<<standard(rnd,mu, gamma,j)<<',';

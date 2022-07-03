@@ -41,13 +41,13 @@ int main (int argc, char *argv[]){
 	
 	
 	double random1,random2;
-	int size=34;					//number of cities
+	int size=500;					//number of cities
 	int sizePop=1000;				//size of the population
-	int nGens=500;				//number of generations
-	double pChoice = 0.1;			//related to probability of the selection of the fittest
+	int nGens=10000;				//number of generations
+	double pChoice = 0.3;			//related to probability of the selection of the fittest
 	City city(0.0,0.0);
 	double defaultProb=0.1;			//probability of mutation
-	double pCrossOver=0.5;			//probability of crossing over
+	double pCrossOver=0.45;			//probability of crossing over
 	double mean=0;
 	
 	//initialize the output
@@ -63,19 +63,19 @@ int main (int argc, char *argv[]){
 	}
 	
 	//fill the vector with cities in a square
-	/*for(int i = 0; i<size; i++){
+	for(int i = 0; i<size; i++){
 		random1=rnd.Rannyu(-1,1);
 		random2=rnd.Rannyu(-1,1);
 		city= City(random1,random2);
 		cities.push_back(city);
-	}*/
+	}
 	
 	//fill the vector with cities on a circle
-	for(int i = 0; i<size; i++){
+	/*for(int i = 0; i<size; i++){
 		random1=2*rnd.Rannyu()*M_PI;
 		city= City(std::cos(random1),std::sin(random1));
 		cities.push_back(city);
-	}
+	}*/
 	//print the cities in the ouput file
 	for(int i =0; i< size; i++){
 		outputCity<<cities[i].x<<","<<cities[i].y<<std::endl;

@@ -1,5 +1,5 @@
 CC = g++ -g
-CFLAGS = -Wall -O0 --std=c++11
+CFLAGS = -Wall -O3 --std=c++11
 
 main.exe : main.o random.o salesman.o
 	$(CC)  salesman.o random.o main.o -o main.exe

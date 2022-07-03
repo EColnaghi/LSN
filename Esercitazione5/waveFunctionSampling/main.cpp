@@ -21,11 +21,13 @@ double error(std::vector<double> A, std::vector<double> A2, int n){
 	}
 }
 
+
+//return the average position of the points in the positions vector
 Point averagePoint(std::vector<Point> positions){
 	double sumX=0;
 	double sumY=0;
 	double sumZ=0;
-	for(int i =0; i<positions.size(); i++){
+	for(int i =0; i<(int)positions.size(); i++){
 		sumX+=positions[i].x;
 		sumY+=positions[i].y;
 		sumZ+=positions[i].z;
@@ -37,15 +39,20 @@ Point averagePoint(std::vector<Point> positions){
 	return toReturn;
 }
 
+
+//return the average square distance from the origin of the points in the positions vector
 double averageRadius(std::vector<Point> positions){
 	double sum=0;
-	for(int i =0; i<positions.size(); i++){
+	for(int i =0; i<(int)positions.size(); i++){
 		sum+=std::sqrt(std::pow(positions[i].x,2)+std::pow(positions[i].z,2)+std::pow(positions[i].y,2));
 	}
 	sum/=positions.size();
 	return sum;
 }
 
+
+//fill a vector of observables A and a vector of squares of the same observables A2 with their progressive mean
+//calculate the statistica uncertainties and put it in the err vector
 void progError(std::vector<double> &A, std::vector<double> &A2, std::vector<double> &err){
 	int N= A.size();
 	for(int i = 1; i<N;i++){
@@ -68,6 +75,8 @@ void progError(std::vector<double> &A, std::vector<double> &A2, std::vector<doub
 	
 }
 
+
+// return a random point uniformly distributed in the cube centered on p with the side of length 2.5
 Point jump(Point p, Random &rnd){
 	Point q = p;
 	q.x += (6*rnd.Rannyu()-3);
@@ -92,6 +101,9 @@ double psi210(Point p){
 }
 
 
+/*this function fill the vectors xs with points sampled from the distribution pdf using transition probability jump, 
+starting from point x_0. Length is the number of points we want and rnd is the Random object we use to generate
+the numbers*/
 template<typename Function, typename Function2>
 void metropolisSampling3D(std::vector<Point> &xs, Function pdf, Function2 jump, Point x_0, int length, Random &rnd){
 	
@@ -124,7 +136,7 @@ void metropolisSampling3D(std::vector<Point> &xs, Function pdf, Function2 jump, 
 
 
 
-
+//print the position sampled by the metropolis for psi210, with jump jump in an output file
 int main (int argc, char *argv[]){
 
    Random rnd;
@@ -158,15 +170,10 @@ int main (int argc, char *argv[]){
 	double y0=0;
 	double z0=150;
 	int length=100000;
-	double N=1000;
-	std::vector<Point> avgPos;
-	std::vector<double> avgRadius;
 	
 	std::vector<Point> positions;
 	
-	Point avgPosition;
 	Point xs0={x0,y0,z0};
-	Point averagePosition;
 	
 	//metropolisSampling3D(xs,pdf,jump,x_0,length,rnd){
 	metropolisSampling3D(positions, psi210, jump, xs0, length, rnd);

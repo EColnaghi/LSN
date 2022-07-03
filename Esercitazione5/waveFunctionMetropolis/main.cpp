@@ -19,6 +19,7 @@ double error(std::vector<double> A, std::vector<double> A2, int n){
 	}
 }
 
+//return the average position of the points in the positions vector
 Point averagePoint(std::vector<Point> positions){
 	double sumX=0;
 	double sumY=0;
@@ -35,6 +36,7 @@ Point averagePoint(std::vector<Point> positions){
 	return toReturn;
 }
 
+//return the average square distance from the origin of the points in the positions vector
 double averageRadius(std::vector<Point> positions){
 	double sum=0;
 	for(int i =0; i<(int)positions.size(); i++){
@@ -44,6 +46,8 @@ double averageRadius(std::vector<Point> positions){
 	return sum;
 }
 
+//fill a vector of observables A and a vector of squares of the same observables A2 with their progressive mean
+//calculate the statistica uncertainties and put it in the err vector
 void progError(std::vector<double> &A, std::vector<double> &A2, std::vector<double> &err){
 	int N= A.size();
 	for(int i = 1; i<N;i++){
@@ -66,16 +70,17 @@ void progError(std::vector<double> &A, std::vector<double> &A2, std::vector<doub
 	
 }
 
+// return a random point uniformly distributed in the cube centered on p with the side of length 2.5
 Point jump100(Point p, Random &rnd){
 	Point q = p;
 	q.x += (2.5*rnd.Rannyu()-1.25);
 	q.y += (2.5*rnd.Rannyu()-1.25);
 	q.z += (2.5*rnd.Rannyu()-1.25);
-	//std::cout<<q.x<<" "<<q.y<<" "<<q.z<<std::endl;
 	return q;
 }
 
 
+// return random point uniformly distributed in the cube centered on p with the side of length 6
 Point jump210(Point p, Random &rnd){
 	Point q = p;
 	q.x += (6*rnd.Rannyu()-3);
@@ -86,6 +91,7 @@ Point jump210(Point p, Random &rnd){
 }
 
 
+// return random point distributed according to a gaussian of SD 1 centered in p
 Point jump100Gauss(Point p, Random &rnd){
 	Point q = p;
 	q.x += (rnd.Gauss(0,1));
@@ -96,6 +102,7 @@ Point jump100Gauss(Point p, Random &rnd){
 }
 
 
+// return random point distributed according to a gaussian of SD 2 centered in p
 Point jump210Gauss(Point p, Random &rnd){
 	Point q = p;
 	q.x += (rnd.Gauss(0,2));
@@ -104,6 +111,8 @@ Point jump210Gauss(Point p, Random &rnd){
 	//std::cout<<q.x<<" "<<q.y<<" "<<q.z<<std::endl;
 	return q;
 }
+
+//return the square modulus of the wavefunction of the first eigenstate of the hydrogen atom, evaluated in R
 double psi100(Point p){
 	double r=std::sqrt(std::pow(p.x,2)+std::pow(p.y,2)+std::pow(p.z,2));
 	//std::cout<<std::pow((1/std::sqrt(M_PI))*std::exp(-r),2)<<std::endl;
@@ -111,6 +120,7 @@ double psi100(Point p){
 }
 
 
+//return the square modulus of the wavefunction of the state |210> of the hydrogen atom, evaluated in R
 double psi210(Point p){
 	double r     = std::sqrt(std::pow(p.x,2)+std::pow(p.y,2)+std::pow(p.z,2));
 	double theta = std::atan((std::sqrt(std::pow(p.x,2)+std::pow(p.y,2)))/p.z);
@@ -159,7 +169,7 @@ void computeMeans(std::vector<double> &avgRadius, std::vector<double> &avgRadius
 
 	avgRadius.clear();
 	avgRadiusSqr.clear();
-	errors.clear(); 
+	err.clear(); 
 
 	std::vector<Point> avgPos;
 	std::vector<Point> positions;
