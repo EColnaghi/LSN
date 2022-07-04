@@ -41,10 +41,10 @@ int main (int argc, char *argv[]){
 	
 	
 	double random1,random2;
-	int size=500;					//number of cities
-	int sizePop=1000;				//size of the population
-	int nGens=10000;				//number of generations
-	double pChoice = 0.3;			//related to probability of the selection of the fittest
+	int size=34;					//number of cities
+	int sizePop=100;				//size of the population
+	int nGens=1000;				//number of generations
+	double pChoice = 0.1;			//related to probability of the selection of the fittest
 	City city(0.0,0.0);
 	double defaultProb=0.1;			//probability of mutation
 	double pCrossOver=0.45;			//probability of crossing over
