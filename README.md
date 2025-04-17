@@ -1,2 +1,7 @@
-# LSN
-I notebook 9 e 10 contengono delle gif animate, molto espressive ma un po' pesanti da compilare. Per questo ho fatto i notebook 9 e 10 light, in cui le gif animate sono state sostituite da immagini
+# Laboratory of Scientific Computing - Project Repository
+
+This repository contains all 13 projects developed as part of the *Laboratory of Scientific Computing* course.
+
+Each project is organized in its own subfolder and includes a **Jupyter notebook** that explains both the theoretical background and the implementation details.
+
+---
